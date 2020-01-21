@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue"></script>
+    <scriptsrc="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <scriptsrc="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="userform">
+     <span v-if='currentUser'> 
+      {{currentUser}}
+      <button @click='signout'>Sign out</button>
+      
+    </span>
+    <span v-else> 
+        email <input v-model='email'>
+        password <input type ='password'v-model='password'>
+        <button v-on:click ='signin'>Sign in</button><br>
+      
+       
+        {{userMessage}}
+        </span><br>
+    </div>
+    <div id="filter1">
+        <h1>Filters</h1>
+        <select multiple v-model='selectedLocation'>
+        <option v-for="location in locations">
+        {{location}}
+        </option>
+        </select>
+        <p>Selected location: {{selectedLocation}}</p>   
+        <select v-model="selected">
+            <option v-for="option in options"
+               v-bind:value="option.value">
+                {{option.text }}
+                </option>
+               </select>
+               <span>sort by Price</span>
+            <h1>courses</h1>
+                <input type="text" v-model="searchText" placeholder="Search">Search <br>
+                <div v-for="course in sortedArray" class="course">
+                    <ul> 
+                    <li v-for='(value, name) in course'>
+                        {{name}}: {{value}}
+                    </li>
+                     </ul>  
+                </div>
+                    <button v-on:click='reset'>reset</button>     
+       
+</div>
+    
+<script>
+var userform = new Vue({
+    el:"#userform",
+    data:{
+    currentUser:'',
+    email:'',
+    emailreg:'',
+    username:'',
+    password:'',
+    passwordreg:'',
+    confirmpassword:'',
+    userMessage:''},
+    methods:{
+        signin: function(){
+                             
+            var savedUser = JSON.parse(localStorage.getItem('users'))
+            if ( savedUser.email == this.email && savedUser.password == this.password){
+                this.currentUser = this.email;
+                alert(savedUser.email)
+            }
+            else 
+            alert(savedUser.email)
+            this.userMessage=' error: username or password is not correct.';
+            return;
+       
+    },
+        signup: function() {  
+      var users = '';  
+    var userName = this.username; 
+    var newEmail = this.emailreg;  
+    var Upassword = this.passwordreg;
+    var Upasswordcon = this.confirmpassword;
+    var checkingForAt = newEmail.indexOf("@");
+    var checkingForDot = newEmail.indexOf(".");
+       if (localStorage.getItem('users'))
+                     { 
+     // 'users' is an array of objects  
+      users = JSON.parse(localStorage.getItem('users'));  
+         };         
+         if (userName.length <= 1 || userName.length > 20 ) {
+            alert("please etnetr at least 2 character ");
+           // regform.Uname.focus();
+            return false
+                 }
+            else if (checkingForAt < 1 || checkingForDot < checkingForAt + 2 || checkingForDot + 2 > newEmail.length){
+             alert("invalid email ");
+              return false;
+                    
+                                                }                          
+               else if ((Upassword.length <= 7 || Upassword.length > 20 ) ) {
+               alert("password must be at least 8 character and not more than 20");
+                   return false ;
+                     }
+                     else if (Upassword != Upasswordcon ) {
+                      alert("passwords do not match");
+                       return false ;
+                     }
+                                          
+               if (users){
+                if (users.some(function(user) {return user.email === newEmail})) {  
+                  alert('Email already exists!');    
+                      return;  
+        }
+                                
+                                                                 
+             users.push({'username':userName, 'email': newEmail, 'password': Upassword});   
+             localStorage.setItem('users', JSON.stringify(users));        }   
+                    
+                                     
+             else {  
+               users = [{'username':userName, 'email': newEmail, 'password':Upassword }];   
+             localStorage.setItem('users', JSON.stringify(users)); 
+                                                                                 
+ } 
+                                                                            
+  } 
+        
+       }})
+ var filterApp = new Vue({
+el: '#filter1',
+data: {
+    searchText:'',
+    selected: 'A',
+    options: [
+      { text: 'high to low', value: 'A' },
+      { text: 'low to high', value: 'B' },
+     
+    ],
+  courses: [
+{ 'topic': 'math', 'location': 'hendon', 'price': 100 },
+ { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+ { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+ { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+ { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+ { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+ { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+ { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+],
+
+selectedTopic: [],
+selectedLocation: [],
+},
+methods: {
+         reset: function() {
+       this.selectedTopic = [];
+       this.selectedLocation = [];
+},
+
+
+},
+
+computed: {
+
+locations: function () {
+return [...new Set(this.courses.map(x => x.location))]
+},
+
+sortedArray: function(){
+              if(this.selected ==="A"){
+             function compare(a,b){
+             return b.price-a.price}}
+            if(this.selected==="B"){
+                      function compare(a,b){
+                        return a.price -b.price}}
+                    return this.filteredCourses.sort(compare);
+       },
+filteredCourses: function(){
+  var  courses =  [
+{ 'topic': 'math', 'location': 'hendon', 'price': 100 },
+ { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+ { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+ { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+ { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+ { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+ { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+ { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+]
+  
+   return courses.filter(course =>{
+       // search condition
+       var searchCourse = course.topic.includes(this.searchText);
+       // filter condition
+       var filterCourse = this.selectedLocation.length == 0||
+       this.selectedLocation.includes(course.location);
+       // combine the result
+
+       
+  
+       return searchCourse && filterCourse ;
+       
+  
+   })
+    
+}
+}})
+ </script>                                   
+</body>
+</html>
