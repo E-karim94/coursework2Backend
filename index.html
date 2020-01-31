@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue"></script>
+    <scriptsrc="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <scriptsrc="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="coursesDispaly">
+        <h1> courses11:</h1>
+        <div v-for="course in courses" class="course">
+            <ul> 
+            <li v-for='(value, name) in course'>
+                {{name}}: {{value}}
+            </li>
+             </ul>  
+        </div>
+    </div>
+  
+    <div id="usersSearch">
+        <h1> search for users by email:</h1>
+        <label >enter your email</label>
+        <input required type="text" name ="useremail" v-model="useremail">
+        
+        <button v-on:click='searchForUsers'>submit</button><br>
+        <div v-for="users in usersdetails " class="course">
+           name <strong>{{usersdetails.username}}</strong><br>
+              email  <strong>{{usersdetails.email}}</strong><br>
+              password  <strong>{{usersdetails.password}}</strong><br>
+            
+        </div>
+      
+               
+    </div>
+    
+
+    <div id="regform">
+        
+        <div id="createAccount">
+            <h1 style="text-align:center">Create An Account </h1>
+            <h2 id="regmessage"></h2>
+            <form>
+                <label for="username">User Name</label>
+                 <input required type="text" name ="username" v-model="username">
+                 <label for="email">Email</label>
+                 <input required type="email" name ="email" v-model="email"  >
+                 <label for="password">Password</label>
+                 <input required type="password" name ="password" v-model="password">
+                 <button v-on:click='createAccount'>submit</button>
+        
+            </form>
+            </div>
+          
+            
+            <h1>uodate courses</h1>
+            <form id="updateCourses">
+                <label >id</label>
+                 <input  type="text" name ="id" v-model="id">
+                 <label >topic</label>
+                 <input type="text" name ="topic" v-model="topic">
+                 <label >location</label>
+                 <input  type="text" name ="location" v-model="location">
+                 <label >price</label>
+                 <input  type="text" name ="price" v-model="price">
+                 
+                 <button v-on:click='updateData'>submit</button>
+                 </form>
+                 
+
+        </div>
+        <div id="deleteCourses">
+        <form>
+            <h1>delete course</h1>
+            <label >id</label>
+             <input  type="text" name ="id" v-model="idDel">
+             
+             <button v-on:click='deleteData'>submit</button>
+             </form>
+        </div>
+        
+    <script>
+
+      
+
+fetch('http://localhost:3000/collections/lessons')
+.then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       testing.courses = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+
+var testing = new Vue({
+                el: '#coursesDispaly',
+                data: {
+
+                    courses: [],
+ }})
+
+ var testing3 = new Vue({
+                el: '#createAccount',
+                data: {
+                    username:'',
+                  email:'',
+                  password:'',
+                                 
+},
+methods:{
+    createAccount:function () {
+   fetch(`/collections/users`, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    'Content-Type': 'application/json',
+  },
+    
+    body: JSON.stringify({username: this.username, email: this.email, password: this.password }) 
+  }).then(function (response){
+      return response.json()
+  }).then(function(data){
+  console.log('post rest', data)
+  })
+}
+}})
+
+ var testing3 = new Vue({
+el: '#updateCourses',
+data: {
+id:'',
+topic:'',
+    location:'',
+    price: '',                
+},
+methods:{
+     updateData:function () {
+         var topicid = this.id
+         var pricee = this.price;
+         var pointNum = parseFloat(pricee);
+        
+         alert(pointNum  );
+  
+   fetch(`/collections/lessons/${topicid}`, {
+    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    'Content-Type': 'application/json',
+  },
+    
+    body: JSON.stringify({topic: this.topic, location: this.location,price: pricee }) 
+  }).then(function (response){
+      return response.json()
+  }).then(function(data){
+  console.log('post rest', data)
+  })
+}
+}})
+
+
+  
+  var testing4 = new Vue({
+                el: '#deleteCourses',
+                data: {
+                    idDel:'',
+                                 
+},
+methods:{
+     deleteData:function () {
+         var topicid = this.idDel
+        
+  
+   fetch(`/collections/lessons/${topicid}`, {
+    method: 'delete', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    
+  },
+    
+    body: JSON.stringify({id: this.idDel}) 
+  }).then(function (response){
+      return response.json()
+      alert()
+  }).then(function(data){
+  console.log('post rest', data)
+  alert(data)
+  })
+}}
+})
+
+
+  var searchusers = new Vue({
+                el: '#usersSearch',
+                data: {
+                  
+                    useremail:'',
+                    usersdetails :'',
+                    userMessage:'',
+                 },
+methods:{
+   searchForUsers:function (){
+       var email = this.useremail
+       fetch(`/collections/users/emails/${email}`)
+       .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       
+       searchusers.usersdetails = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+  })
+
+                      
+    </script>
+    
+</body>
+</html>
