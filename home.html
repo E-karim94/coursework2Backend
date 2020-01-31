@@ -47,11 +47,47 @@
                     <ul> 
                     <li v-for='(value, name) in course'>
                         {{name}}: {{value}}
+      
                     </li>
                      </ul>  
+                     
                 </div>
-                    <button v-on:click='reset'>reset</button>     
-       
+                    <button v-on:click='reset'>reset</button>        
+</div>
+<div id=reviews>
+  <h3> reviews</h3>
+  <select v-model='selectedLocation'>
+    <option v-for="location in locations">
+    {{location}}
+    </option>
+    </select>
+    <p>Selected location: {{selectedLocation}}</p>  
+    <select v-model='selectedTopic'>
+      <option v-for='topic in topics'>
+      {{topic}}
+      </option>
+      </select>
+      <p>Selected topics: {{selectedTopic}}</p>
+     
+                     <input type="radio" id="one" value="1" v-model="picked">
+                     <label for="one">1</label>
+                    
+                     <input type="radio" id="two" value="2" v-model="picked">
+                     <label for="two">2</label>
+                    
+                     <input type="radio" id="three" value="3" v-model="picked">
+                     <label for="three">3</label>
+                   
+                     <input type="radio" id="four" value="4" v-model="picked">
+                     <label for="four">4</label>
+                    
+                     <input type="radio" id="five" value="5" v-model="picked">
+                     <label for="five">5</label>
+                     <br>
+                    <span>Picked: {{ picked }}</span>
+                    <button v-on:click ='review'>submit review</button><br>
+                    {{userMessage}}
+
 </div>
     
 <script>
@@ -136,6 +172,7 @@ var userform = new Vue({
 el: '#filter1',
 data: {
     searchText:'',
+    picked: '',
     selected: 'A',
     options: [
       { text: 'high to low', value: 'A' },
@@ -184,7 +221,7 @@ sortedArray: function(){
        },
 filteredCourses: function(){
   var  courses =  [
-{ 'topic': 'math', 'location': 'hendon', 'price': 100 },
+{ 'topic': 'math', 'location': 'hendon', 'price': 100, 'ranking':([{'user':'email1','ranking':5},{'user':'email2','ranking':3}]).length },
  { 'topic': 'math', 'location': 'colindale', 'price': 80 },
  { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
  { 'topic': 'math', 'location': 'golders green', 'price': 120 },
@@ -213,6 +250,65 @@ filteredCourses: function(){
     
 }
 }})
+new Vue({
+  el: '#reviews',
+  data: {
+    picked: '',
+    userMessage: '',
+    courses: [
+{ 'topic': 'math', 'location': 'hendon', 'price': 100 },
+ { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+ { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+ { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+ { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+ { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+ { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+ { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+ { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+],
+    selectedTopic: '',
+ selectedLocation: '',
+  },
+  methods: {
+    review: function () {
+      var topicsrev = this.selectedTopic;
+      var locationsrev = this.selectedLocation;
+      var pickedrev = this.picked;
+      if ((topicsrev == '' || locationsrev == ''  ) || pickedrev == ''){
+        this.userMessage ='topic or location is not picked';
+
+      }
+      else 
+           
+             if (localStorage.getItem('reviews'))
+                     { 
+          var reviews = JSON.parse(localStorage.getItem('reviews'));  
+         
+          reviews.push({'topic':topicsrev, 'location': locationsrev, 'pick':pickedrev });   
+             localStorage.setItem('reviews', JSON.stringify(reviews));           
+                      
+           }
+           else {  
+               reviews = [{'topic':topicsrev, 'location': locationsrev, 'pick':pickedrev }];   
+             localStorage.setItem('reviews', JSON.stringify(reviews)); 
+           }
+
+}
+  },
+  computed: {
+    topics: function () { // return an array of all the topics
+ 
+ return [...new Set(this.courses.map(x => x.topic))]
+ },
+
+locations: function () {
+ 
+return [...new Set(this.courses.map(x => x.location))]
+}
+
+}
+})
  </script>                                   
 </body>
 </html>
