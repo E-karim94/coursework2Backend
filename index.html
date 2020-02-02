@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="coursesDispaly">
-        <h1> courses11:</h1>
+        <h1> courses:</h1>
         <button id="notifications" >notification</button>
         <div v-for="course in courses" class="course">
             <ul> 
@@ -28,14 +28,12 @@
       <article v-for="course in courses">
       <img :src="'data/images/'+course.slug+'.jpg'":alt="course.name" width="200" height="200">
        
-        <img src="data/images/image3.jpg" :alt="course.topic" width="200" height="200">
-       
-        <h3>{{course.topic}}</h3>
+        <h2>{{course.topic}}</h2>
         <ul>
           <li>provider:<strong>{{course.provider}}</strong></li>
           <li>location:{{course.location}}</li>
           <li>price:{{course.price}}</li>
-          <li>price:{{course.price}}</li>
+         
           
        
         </ul>
