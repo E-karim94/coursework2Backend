@@ -8,11 +8,14 @@
     <scriptsrc="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <scriptsrc="https://cdn.jsdelivr.net/npm/vue"></script>
     <link rel="stylesheet" type="text/css" href="home.css">
-    <title>Document</title>
+    <script src="data/courses.js" defer></script>
+    <script src="app.js" defer></script>
+    <title>After school club</title>
 </head>
 <body>
     <div id="coursesDispaly">
         <h1> courses11:</h1>
+        <button id="notifications" >notification</button>
         <div v-for="course in courses" class="course">
             <ul> 
             <li v-for='(value, name) in course'>
@@ -21,6 +24,23 @@
              </ul>  
         </div>
     </div>
+    <section id="content">
+      <article v-for="course in courses">
+      <img :src="'data/imgages/'+course.slug+'.JPG'":alt="course.topic">
+       
+        <img src="data/images/image2.JPG" :alt="course.topic" width="200" height="200">
+       
+        <h3>{{course.topic}}</h3>
+        <ul>
+          <li>provider:<strong>{{course.provider}}</strong></li>
+          <li>location:{{course.location}}</li>
+          <li>price:{{course.price}}</li>
+          <li>price:{{course.price}}</li>
+          <img src="data/images/image1.jpg" :alt="course.topic" width="200" height="200">
+       
+        </ul>
+      </article>
+    </section>
   
     <div id="usersSearch">
         <h1> search for users by email:</h1>
@@ -84,6 +104,7 @@
         </div>
         
     <script>
+    
 
       
 
