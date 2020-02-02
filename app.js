@@ -1,5 +1,5 @@
 if('serviceWorker'in navigator)
-{navigator.serviceWorker.register('/pwa-examples/js13kpwa/sw.js');};
+{navigator.serviceWorker.register('/coursework2Backend/coursework2/sw.js');};
 
 
 var button = document.getElementById("notifications");
