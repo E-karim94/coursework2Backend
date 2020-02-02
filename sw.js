@@ -27,7 +27,7 @@ var appShellFiles = [
 
 var coursesImages = [];
 for (var i = 0 ; i <courses.length ; i++){
-    gamesImages.push('data/img/'+courses[i].slug+'.jpg');
+    coursesImages.push('data/img/'+courses[i].slug+'.jpg');
 }var contentToCache = appShellFiles.concat(coursesImages);
 
 self.addEventListener('install',(e)=>{
