@@ -11,14 +11,13 @@ var appShellFiles = [
     '/coursework2Backend/coursework2/data/images/image4.jpg ',
     '/coursework2Backend/coursework2/data/images/image5.jpg ',
     '/coursework2Backend/coursework2/data/images/image6.jpg ',
+    '/coursework2Backend/coursework2/data/images/image7.jpg ',
+    '/coursework2Backend/coursework2/data/images/image8.jpg ',
+    '/coursework2Backend/coursework2/data/images/image9.jpg ',
+    '/coursework2Backend/coursework2/data/images/image10.jpg ',
    
   
 ];
-
- var courses = [ { 'slug':'image1','topic': 'math', 'provider':'mike', 'location': 'hendon', 'price': 100 },
-{'slug':'image2', 'topic': 'math','provider':'deen',  'location': 'colindale', 'price': 80 },
-{'slug':'image3', 'topic': 'math','provider':'solo',  'location': 'brent cross', 'price': 90 },
-]
 
 
 var contentToCache = appShellFiles
