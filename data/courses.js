@@ -1,7 +1,7 @@
 const vuedisplaycontent = new Vue({
     el:'#content',
     data:{
-      courses: [ { 'slug':'image','topic': 'math', 'provider':'mike', 'location': 'hendon', 'price': 100 },
+      courses: [ { 'slug':'image1','topic': 'math', 'provider':'mike', 'location': 'hendon', 'price': 100 },
       {'slug':'image', 'topic': 'math','provider':'deen',  'location': 'colindale', 'price': 80 },
       {'slug':'hhdf', 'topic': 'math','provider':'solo',  'location': 'brent cross', 'price': 90 },
       {'slug':'ikjg', 'topic': 'math', 'provider':'gerns', 'location': 'golders green', 'price': 120 },
