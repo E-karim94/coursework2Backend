@@ -1,5 +1,6 @@
 if('serviceWorker'in navigator)
-{navigator.serviceWorker.register('/coursework2Backend/coursework2/sw.js');};
+{navigator.serviceWorker.register('/coursework2Backend/sw.js');
+};
 
 
 var button = document.getElementById("notifications");
