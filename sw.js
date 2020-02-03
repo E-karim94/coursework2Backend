@@ -1,3 +1,4 @@
+self.importScripts(data/courses.js);
 var cacheName ='coursework2-v1'; 
 
 var appShellFiles = [
