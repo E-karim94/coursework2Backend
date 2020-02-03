@@ -1,5 +1,5 @@
 if('serviceWorker'in navigator)
-{navigator.serviceWorker.register('/coursework2Backend/sw.js');
+{navigator.serviceWorker.register('coursework2Backend/sw.js');
 };
 
 
