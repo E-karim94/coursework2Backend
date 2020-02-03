@@ -1,9 +1,9 @@
 {
     "name":"afterschool Progressive Web App",
-    "short_name":"js13kPWA",
+    "short_name":"afterschool",
     "description":"Progressive Web App that for afterschool.",
     "icons":[
-    {"src":"images/lego.jpg",
+    {"src":"data/images/lego.jpg",
     "sizes":"32x32",
     "type":"image/jpg"
     }
