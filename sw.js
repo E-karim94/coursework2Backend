@@ -18,16 +18,21 @@ var appShellFiles = [
    
   
 ];
+var coursesImages = [];
+for (var i = 0 ; i <courses.length ; i++){
+    coursesImages.push('data/imgages/'+courses[i].slug+'.jpg');
+}
 
 
-var contentToCache = appShellFiles
+var contentToCache = appShellFiles.concat(coursesImages) 
 
 self.addEventListener('install',(e)=>{
     console.log('[Service Worker] Install');
     e.waitUntil(
-        caches.open(cacheName).then((cache)=>{
+        caches.open(cacheName).then((cache) => {
              console.log('[Service Worker] Caching all: app shell and content');
              return cache.addAll(contentToCache);
-            }));
+            })
+            );
         }
  );
