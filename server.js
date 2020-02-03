@@ -87,6 +87,6 @@ res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
 })
 
 app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+   console.log("Server is listening on port 3000");
 })
 
