@@ -2,19 +2,19 @@
 var cacheName ='cacheFiles-v1'; 
 
 var appShellFiles = [
-    '/coursework2Backend/cacheFiles/',
-    '/coursework2Backend/cacheFiles/index.html',
-    '/coursework2Backend/cacheFiles/app.js',
-    '/coursework2Backend/cacheFiles/home.css',
-    '/coursework2Backend/cacheFiles/data/images/image2.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image3.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image4.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image5.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image6.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image7.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image8.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image9.jpg ',
-    '/coursework2Backend/cacheFiles/data/images/image10.jpg ',
+    '/coursework2Backend/',
+    '/coursework2Backend/index.html',
+    '/coursework2Backend/app.js',
+    '/coursework2Backend/home.css',
+    '/coursework2Backend/data/images/image2.jpg ',
+    '/coursework2Backend/data/images/image3.jpg ',
+    '/coursework2Backend/data/images/image4.jpg ',
+    '/coursework2Backend/data/images/image5.jpg ',
+    '/coursework2Backend/data/images/image6.jpg ',
+    '/coursework2Backend/data/images/image7.jpg ',
+    '/coursework2Backend/data/images/image8.jpg ',
+    '/coursework2Backend/data/images/image9.jpg ',
+    '/coursework2Backend/data/images/image10.jpg ',
    
   
 ];
