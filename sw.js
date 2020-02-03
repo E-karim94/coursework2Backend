@@ -41,7 +41,8 @@ self.addEventListener('install',(e)=>{
                  return caches.open(cacheName).then(function(cache)
                  {
                 console.log('[Service Worker] Caching new resource: '+e.request.url);
-                cache.put(e.request,response.clone());returnresponse;
+                cache.put(e.request, response.clone());
+                return response;
             });
         });
     }));
@@ -59,7 +60,7 @@ self.addEventListener('activate',(e) => {
     e.waitUntil(
     caches.keys().then((keyList) => {
     return Promise.all(keyList.map((key) => { 
-    if (key!==cacheName) { 
+    if (key !== cacheName) { 
     return caches.delete(key);
     }}
     ));
