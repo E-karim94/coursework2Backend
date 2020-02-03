@@ -2,7 +2,7 @@
 var cacheName ='coursework2Backend-v1'; 
 
 var appShellFiles = [
-    '/coursework2Backend/',
+    '/coursework2Backend',
     '/coursework2Backend/index.html',
     '/coursework2Backend/app.js',
     '/coursework2Backend/home.css',
