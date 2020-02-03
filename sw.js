@@ -15,7 +15,6 @@ var appShellFiles = [
     '/coursework2Backend/data/images/image8.jpg ',
     '/coursework2Backend/data/images/image9.jpg ',
     '/coursework2Backend/data/images/image10.jpg ',
-    '/coursework2Backend/data/images/lego.jpg ',
    
   
 ];
