@@ -6,7 +6,6 @@ var appShellFiles = [
     '/coursework2Backend/index.html',
     '/coursework2Backend/app.js',
     '/coursework2Backend/home.css',
-    '/coursework2Backend/data/images/lego.jpg ',
     '/coursework2Backend/data/images/image2.jpg ',
     '/coursework2Backend/data/images/image3.jpg ',
     '/coursework2Backend/data/images/image4.jpg ',
@@ -16,6 +15,7 @@ var appShellFiles = [
     '/coursework2Backend/data/images/image8.jpg ',
     '/coursework2Backend/data/images/image9.jpg ',
     '/coursework2Backend/data/images/image10.jpg ',
+    '/coursework2Backend/data/images/lego.jpg ',
    
   
 ];
