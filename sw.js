@@ -1,5 +1,5 @@
 //self.importScripts(data/courses.js);
-var cacheName ='coursework2Backend-v1'; 
+var cacheName ='coursework2-v1'; 
 
 var appShellFiles = [
     '/coursework2Backend/coursework2/',
