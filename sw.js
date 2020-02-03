@@ -21,7 +21,7 @@ var appShellFiles = [
 ];
 
 
-var contentToCache = appShellFiles
+var contentToCache = [] = appShellFiles;
 
 self.addEventListener('install',(e)=>{
     console.log('[Service Worker] Install');
