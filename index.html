@@ -28,7 +28,9 @@
     </div>
     <section id="content">
       <article v-for="course in courses">
-      <img :src="'data/images/'+course.slug+'.jpg'":alt="course.name" width="200" height="200">
+        <img src='data/images/blur.jpg' data-src="data/images.jpg" alt='name' width="200" height="200"></img>
+        
+     
        
         <h2>{{course.topic}}</h2>
         <ul>
@@ -240,7 +242,7 @@ console.log('Fetch problem: '+err.message);
 }}
   })
 
-                      
+         // <img src="'data/images/'+course.slug+'.jpg'" alt="course.name" width="200" height="200">             
     </script>
     
 </body>
