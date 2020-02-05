@@ -1,0 +1,10 @@
+{
+    "name":"afterschool",
+    "icons":[
+        {
+            "src":"data/images/lego.jpg",
+           "sizes":"64x64",
+            "type":"image/jpg"
+        }
+    ]
+}
