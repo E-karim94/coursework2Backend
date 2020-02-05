@@ -5,6 +5,18 @@
             "src":"data/images/lego.jpg",
            "sizes":"64x64",
             "type":"image/jpg"
+        },
+
+        {
+            "src":"data/images/image3.jpg",
+           "sizes":"32x32",
+            "type":"image/jpg"
         }
-    ]
+        
+        ],
+        "start_url":"/coursework2Backend/index.html",
+        "display":"fullscreen",
+        "theme_color":"#B12A34",
+        "background_color":"#B12A34"
+    
 }
