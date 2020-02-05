@@ -1,0 +1,16 @@
+<html>
+
+<head>
+    <link rel="manifest" href="cw2.webmanifest">
+</head>
+
+<body>
+    <h1>test page</h1>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        };
+    </script>
+</body>
+
+</html>
