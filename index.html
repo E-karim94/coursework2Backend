@@ -8,7 +8,7 @@
     <scriptsrc="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <scriptsrc="https://cdn.jsdelivr.net/npm/vue"></script>
     <link rel = "stylesheet" type="text/css" href="home.css">
-    <link rel="manifest"href="js13kpwa.webmanifest">
+    <link rel ="manifest"href="js13kpwa.webmanifest">
     
     <script src="data/courses.js" defer></script>
     <script src="app.js" defer></script>
@@ -28,7 +28,7 @@
     </div>
     <section id="content">
       <article v-for="course in courses">
-        <img src='data/images/blur.jpg' data-src="data/images.jpg" alt='name' width="200" height="200"></img>
+        <img src='data/images/blur.jpg' data-src="data/images/lego.jpg" alt='name' width="200" height="200"></img>
         
      
        
@@ -37,27 +37,23 @@
           <li>provider:<strong>{{course.provider}}</strong></li>
           <li>location:{{course.location}}</li>
           <li>price:{{course.price}}</li>
+          <li>Ranking:{{course.ranking}}</li>
          
           
-       
         </ul>
       </article>
     </section>
   
-    <div id="usersSearch">
+   <div  id="usersSearch">
         <h1> search for users by email:</h1>
         <label >enter your email</label>
         <input required type="text" name ="useremail" v-model="useremail">
         
         <button v-on:click='searchForUsers'>submit</button><br>
-        <div v-for="users in usersdetails " class="course">
-           name <strong>{{usersdetails.username}}</strong><br>
-              email  <strong>{{usersdetails.email}}</strong><br>
-              password  <strong>{{usersdetails.password}}</strong><br>
-            
-        </div>
-      
-               
+   
+            <strong>{{usersdetails.username}}</strong><br>
+            <strong>{{usersdetails.email}}</strong>
+                   
     </div>
     
 
@@ -104,6 +100,27 @@
              <button v-on:click='deleteData'>submit</button>
              </form>
         </div>
+
+        <div id="RetriveCoursesByProvider">
+          <strong>{{ coursesByprovider.provider}}</strong><br>
+               <strong>{{coursesByprovider.topic}}</strong>
+          <form>
+              <h1>Retrive courses by provider course</h1>
+              <label >provider's name</label>
+               <input  type="text" name ="proName" v-model="providerName">
+               
+               <button v-on:click='serachProCourses'>submit</button>
+           
+               </form>
+               <div v-for="provider in coursesByprovider" class="course">
+                <ul> 
+                <li v-for='(value, name) in provider'>
+                    {{name}}: {{value}}
+                </li>
+                 </ul>  
+            </div>
+               
+          </div>
         
     <script>
     
@@ -214,6 +231,33 @@ methods:{
   })
 }}
 })
+// retrive courses by provider
+var RetriveCourse = new Vue({
+                el: '#RetriveCoursesByProvider',
+                data: {
+                  providerName:'',
+                  coursesByprovider:[],
+                                 
+},
+methods:{
+    serachProCourses:function () {
+         var provider = this.providerName
+        
+  
+   fetch(`/collections/lessons/providers/couseprovider/${provider}`)
+   .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       
+       RetriveCourse.coursesByprovider = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+})
 
 
   var searchusers = new Vue({
@@ -221,8 +265,8 @@ methods:{
                 data: {
                   
                     useremail:'',
-                    usersdetails :'',
-                    userMessage:'',
+                    usersdetails :[],
+                  
                  },
 methods:{
    searchForUsers:function (){
