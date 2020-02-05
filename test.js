@@ -31,6 +31,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
     })
 
 
+
     app.get('/', function (req, res) {
         res.sendFile(path.join(__dirname + '/index.html'));
     
@@ -72,7 +73,26 @@ res.send(results)
 })
 })
 
-const email = require('mongodb').email;
+//testing redirect
+app.post('/collections/:collectionName',urlencodeParser, function  (req, res, next) {
+    var id = req.body.id;
+    res.redirect(post('/collections/lessons/'+id))
+})
+
+//serach for courses by providers
+app.get('/collections/:collectionName/:providers/:couseprovider/:provider',urlencodeParser, (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log('searching courses provided by:', req.params.provider)
+    req.collection.findOne({ provider: req.params.provider }, (e, result) => {
+        if (e) return next(e)
+        res.send(result)
+        console.log('searching courses provided by:', req.params.provider)
+       
+
+    })
+})
+
+
 //search for users by email
   app.get('/collections/:collectionName/:emails/:email',urlencodeParser, (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -85,6 +105,7 @@ const email = require('mongodb').email;
     })
 })
 
+//search by ID
 app.get('/collections/:collectionName/:id', urlencodeParser, (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 console.log('searching json object with id:', req.params.id)
