@@ -1,7 +1,5 @@
-const vuedisplaycontent = new Vue({
-    el:'#content',
-    data:{
-      courses: [ { 'slug':'lego','topic': 'Lego', 'provider':'mike laley', 'location': 'hendon', 'price': 100 , 'ranking':[{'user':'email1','ranking':5},{'user':'email2','ranking':3}]},
+
+     var  courses =[ { 'slug':'lego','topic': 'Lego', 'provider':'mike laley', 'location': 'hendon', 'price': 100 , 'ranking':[{'user':'email1','ranking':5},{'user':'email2','ranking':3}]},
       { 'slug':'image2','topic': 'Dancing', 'provider':'micheal promt', 'location': 'Greater London', 'price': 140 },
       {'slug':'image3', 'topic': 'Sitch','provider':'Mary Bow',  'location': 'Colindale', 'price': 80 },
       {'slug':'image4', 'topic': 'Sport of under 4','provider':'Lehla Megan',  'location': 'Brent Cross', 'price': 90 },
@@ -15,8 +13,7 @@ const vuedisplaycontent = new Vue({
      
       
     
-    }}
-    )
+    
     
 
           
