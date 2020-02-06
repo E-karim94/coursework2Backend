@@ -14,7 +14,7 @@ Notification.requestPermission().then(function(result){
     );
 });
 
-var courses =  [ { 'slug':'lego','topic': 'Lego', 'provider':'mike laley', 'location': 'hendon', 'price': 100 },
+var courses =  [ { 'slug':'lego','topic': 'Legooo', 'provider':'mike laley', 'location': 'hendon', 'price': 100 },
 { 'slug':'image2','topic': 'Dancing', 'provider':'micheal promt', 'location': 'Greater London', 'price': 140 },
 {'slug':'image3', 'topic': 'Sitch','provider':'Mary Bow',  'location': 'Colindale', 'price': 80 },
 {'slug':'image4', 'topic': 'Sport of under 4','provider':'Lehla Megan',  'location': 'Brent Cross', 'price': 90 },
