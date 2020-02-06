@@ -2,15 +2,15 @@
     "name":"afterschool",
     "icons":[
         {
-            "src":"data/images/lego.jpg",
+            "src":"data/images/logo.png",
            "sizes":"64x64",
-            "type":"image/jpg"
+            "type":"image/png"
         },
 
         {
-            "src":"data/images/image3.jpg",
+            "src":"data/images/logo2.jpg",
            "sizes":"32x32",
-            "type":"image/jpg"
+            "type":"image/png"
         }
         
         ],
