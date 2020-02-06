@@ -73,11 +73,7 @@ res.send(results)
 })
 })
 
-//testing redirect
-app.post('/collections/:collectionName',urlencodeParser, function  (req, res, next) {
-    var id = req.body.id;
-    res.redirect(post('/collections/lessons/'+id))
-})
+
 
 //serach for courses by providers
 app.get('/collections/:collectionName/:providers/:couseprovider/:provider',urlencodeParser, (req, res, next) => {
@@ -86,7 +82,7 @@ app.get('/collections/:collectionName/:providers/:couseprovider/:provider',urlen
     req.collection.findOne({ provider: req.params.provider }, (e, result) => {
         if (e) return next(e)
         res.send(result)
-        console.log('searching courses provided by:', req.params.provider)
+        
        
 
     })

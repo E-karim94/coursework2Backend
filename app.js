@@ -47,9 +47,24 @@ const loadImages = (image) => {
     };
 };
 
-imagesToLoad.forEach((img) => { 
-    loadImages(img);
-});
+if('IntersectionObserver' in window) {
+	var observer = new IntersectionObserver(function(items, observer) {
+		items.forEach(function(item) {
+			if(item.isIntersecting) {
+				loadImages(item.target);
+				observer.unobserve(item.target);
+			}
+		});
+	});
+	imagesToLoad.forEach(function(img) {
+		observer.observe(img);
+	});
+}
+else {
+	imagesToLoad.forEach(function(img) {
+		loadImages(img);
+	});
+}
 
 
 

@@ -46,19 +46,23 @@
     </section>
   
    <div  id="usersSearch">
-        <h1> search for users by email:</h1>
+        <h1> search for users by email11:</h1>
         <label >enter your email</label>
         <input required type="text" name ="useremail" v-model="useremail">
         
         <button v-on:click='searchForUsers'>submit</button><br>
    
-            <strong>{{usersdetails.username}}</strong><br>
+            <strong>name:{{usersdetails.username}}</strong><br>
             <strong>{{usersdetails.email}}</strong>
+            <div v-for="user in usersdetails" class="course">
+              <ul> 
+              <li v-for='(value, name) in user'>
+                  {{name}}: {{value}}
+              </li>
+               </ul>  
+          </div>
                    
     </div>
-    
-
-    <div id="regform">
         
         <div id="createAccount">
             <h1 style="text-align:center">Create An Account </h1>
@@ -91,7 +95,7 @@
                  </form>
                  
 
-        </div>
+        
         <div id="deleteCourses">
         <form>
             <h1>delete course</h1>
@@ -102,26 +106,21 @@
              </form>
         </div>
 
-        <div id="RetriveCoursesByProvider">
-          <strong>{{ coursesByprovider.provider}}</strong><br>
-               <strong>{{coursesByprovider.topic}}</strong>
-          <form>
-              <h1>Retrive courses by provider course</h1>
-              <label >provider's name</label>
-               <input  type="text" name ="proName" v-model="providerName">
-               
-               <button v-on:click='serachProCourses'>submit</button>
-           
-               </form>
-               <div v-for="provider in coursesByprovider" class="course">
-                <ul> 
-                <li v-for='(value, name) in provider'>
-                    {{name}}: {{value}}
-                </li>
-                 </ul>  
-            </div>
-               
-          </div>
+        <div  id="RetriveCoursesbyPro">
+          <h1> search for users by email22:</h1>
+          <label >enter your email</label>
+          <input required type="text" name =" providerName" v-model=" providerName">
+
+          <button v-on:click='serachProCourses'>submit</button><br>
+     
+              <strong>{{ coursesByprovider.topic}}</strong><br>
+              <strong>{{ coursesByprovider.price}}</strong><br>
+              <strong>{{ coursesByprovider.location}}</strong><br>
+              <strong>{{ coursesByprovider.reviewRanking}}</strong>
+                     
+      </div>
+ 
+  
         
     <script>
     
@@ -232,16 +231,18 @@ methods:{
   })
 }}
 })
+
+
 // retrive courses by provider
-var RetriveCourse = new Vue({
-                el: '#RetriveCoursesByProvider',
-                data: {
+var Retrive = new Vue({
+                el: '#RetriveCoursesbyPro',
+                   data: {
                   providerName:'',
-                  coursesByprovider:[],
+                  coursesByprovider:''
                                  
 },
 methods:{
-    serachProCourses:function () {
+    serachProCourses :function () {
          var provider = this.providerName
         
   
@@ -252,8 +253,8 @@ methods:{
    }).then(function(text)
    {
        alert(text);
-       
-       RetriveCourse.coursesByprovider = JSON.parse(text);
+       Retrive.coursesByprovider  = JSON.parse(text);
+       Retrive.coursesByprovider = JSON.parse(text);
    }).catch(function(err){
 console.log('Fetch problem: '+err.message);
 });
