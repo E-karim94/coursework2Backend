@@ -18,15 +18,16 @@
 <body>
     <div id="coursesDispaly">
       <button id="register" >register</button>
-      <button onclick="window.location.href = 'https://e-karim94.github.io/coursework2Backend/provider.html';">Click Here</button>
+      <button onclick="window.location.href = 'provider.html';">Click Here</button>
         <h1> courses555:</h1>
         <button id="notifications" >notification</button>
         <div v-for="course in courses" class="course">
-            <ul> 
-            <li v-for='(value, name) in course'>
-                {{name}}: {{value}}
-            </li>
-             </ul>  
+          <h2>{{course.topic}}</h2>
+          <ul>
+            <li>provider:<strong>{{course.provider}}</strong></li>
+            <li>location:{{course.location}}</li>
+            <li>price:{{course.price}}</li>
+            <li>Ranking:{{course.ranking}}</li>  
         </div>
     </div>
     <section id="content">
@@ -46,69 +47,6 @@
         </ul>
       </article>
     </section>
-  
-   <div  id="usersSearch">
-        <h1> search for users by email11:</h1>
-        <label >enter your email</label>
-        <input required type="text" name ="useremail" v-model="useremail">
-        
-        <button v-on:click='searchForUsers'>submit</button><br>
-   
-            <strong>name:{{usersdetails.username}}</strong><br>
-            <strong>{{usersdetails.email}}</strong>
-            <div v-for="user in usersdetails" class="course">
-              <ul> 
-              <li v-for='(value, name) in user'>
-                  {{name}}: {{value}}
-              </li>
-               </ul>  
-          </div>
-                   
-    </div>
-        
-        
-          
-            
-            <h1>uodate courses</h1>
-            <form id="updateCourses">
-                <label >id</label>
-                 <input  type="text" name ="id" v-model="id">
-                 <label >topic</label>
-                 <input type="text" name ="topic" v-model="topic">
-                 <label >location</label>
-                 <input  type="text" name ="location" v-model="location">
-                 <label >price</label>
-                 <input  type="text" name ="price" v-model="price">
-                 
-                 <button v-on:click='updateData'>submit</button>
-                 </form>
-                 
-
-        
-        <div id="deleteCourses">
-        <form>
-            <h1>delete course</h1>
-            <label >id</label>
-             <input  type="text" name ="id" v-model="idDel">
-             
-             <button v-on:click='deleteData'>submit</button>
-             </form>
-        </div>
-
-        <div  id="RetriveCoursesbyPro">
-          <h1> search for users by email22:</h1>
-          <label >enter your email</label>
-          <input required type="text" name =" providerName" v-model=" providerName">
-
-          <button v-on:click='serachProCourses'>submit</button><br>
-     
-              <strong>{{ coursesByprovider.topic}}</strong><br>
-              <strong>{{ coursesByprovider.price}}</strong><br>
-              <strong>{{ coursesByprovider.location}}</strong><br>
-              <strong>{{ coursesByprovider.reviewRanking}}</strong>
-                     
-      </div>
- 
   
         
     <script>
@@ -154,123 +92,7 @@ var testing = new Vue({
 
 
 
- var testing3 = new Vue({
-el: '#updateCourses',
-data: {
-id:'',
-topic:'',
-    location:'',
-    price: '',                
-},
-methods:{
-     updateData:function () {
-         var topicid = this.id
-         var pricee = this.price;
-         var pointNum = parseFloat(pricee);
-        
-         alert(pointNum  );
-  
-   fetch(`/collections/lessons/${topicid}`, {
-    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-    headers: {
-    'Content-Type': 'application/json',
-  },
-    
-    body: JSON.stringify({topic: this.topic, location: this.location,price: pricee }) 
-  }).then(function (response){
-      return response.json()
-  }).then(function(data){
-  console.log('post rest', data)
-  })
-}
-}})
-
-
-  
-  var testing4 = new Vue({
-                el: '#deleteCourses',
-                data: {
-                    idDel:'',
-                                 
-},
-methods:{
-     deleteData:function () {
-         var topicid = this.idDel
-        
-  
-   fetch(`/collections/lessons/${topicid}`, {
-    method: 'delete', // *GET, POST, PUT, DELETE, etc.
-    headers: {
-    
-  },
-    
-    body: JSON.stringify({id: this.idDel}) 
-  }).then(function (response){
-      return response.json()
-      alert()
-  }).then(function(data){
-  console.log('post rest', data)
-  alert(data)
-  })
-}}
-})
-
-
-// retrive courses by provider
-var Retrive = new Vue({
-                el: '#RetriveCoursesbyPro',
-                   data: {
-                  providerName:'',
-                  coursesByprovider:''
-                                 
-},
-methods:{
-    serachProCourses :function () {
-         var provider = this.providerName
-        
-  
-   fetch(`/collections/lessons/providers/couseprovider/${provider}`)
-   .then(function(response)
-{
- return response.text()
-   }).then(function(text)
-   {
-       alert(text);
-       Retrive.coursesByprovider  = JSON.parse(text);
-       Retrive.coursesByprovider = JSON.parse(text);
-   }).catch(function(err){
-console.log('Fetch problem: '+err.message);
-});
-}}
-})
-
-
-  var searchusers = new Vue({
-                el: '#usersSearch',
-                data: {
-                  
-                    useremail:'',
-                    usersdetails :[],
-                  
-                 },
-methods:{
-   searchForUsers:function (){
-       var email = this.useremail
-       fetch(`/collections/users/emails/${email}`)
-       .then(function(response)
-{
- return response.text()
-   }).then(function(text)
-   {
-       alert(text);
-       
-       searchusers.usersdetails = JSON.parse(text);
-   }).catch(function(err){
-console.log('Fetch problem: '+err.message);
-});
-}}
-  })
-
+ 
          // <img src="'data/images/'+course.slug+'.jpg'" alt="course.name" width="200" height="200">             
     </script>
     

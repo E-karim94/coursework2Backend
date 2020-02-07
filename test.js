@@ -33,7 +33,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 
 
     app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname + '/index.html'));
+        res.sendFile(path.join(__dirname + '/provider.html'));
     
     })
 const ObjectID = require('mongodb').ObjectID;

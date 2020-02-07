@@ -22,10 +22,260 @@
              <input required type="email" name ="email" v-model="email"  >
              <label for="password">Password</label>
              <input required type="password" name ="password" v-model="password">
+
+             <input type="radio" id="student" value="student" v-model="userType">
+             <label for="four">student</label>
+            
+             <input type="radio" id="parent" value="parent" v-model="userType">
+             <label for="five">parent</label>
+             <br>
+            <span>user Type: {{userType}}</span><br>
+            
              <button v-on:click='createAccount'>submit</button>
     
         </form>
         </div>
+
+        <div id="createCourses">
+            <h1>create Course</h1>
+            <form>
+                 <label >topic</label>
+                 <input type="text" name ="topic" v-model="topic">
+                 <label >location</label>
+                 <input  type="text" name ="location" v-model="location">
+                 <label >price</label>
+                 <input  type="text" name ="price" v-model="price">
+                 <label >provider's Name</label>
+                 <input  type="text" name ="providerName" v-model="providerName">
+                 
+                 <button v-on:click='createCourse'>submit</button>
+                 </form>
+
+
+          </div>
+
+          <div id="updateCourses">
+            <h1>update courses</h1>
+            <form>
+                <label >id</label>
+                 <input  type="text" name ="id" v-model="id">
+                 <label >topic</label>
+                 <input type="text" name ="topic" v-model="topic">
+                 <label >location</label>
+                 <input  type="text" name ="location" v-model="location">
+                 <label >price</label>
+                 <input  type="text" name ="price" v-model="price">
+                 
+                 <button v-on:click='updateData'>submit</button>
+                 </form>
+                </div>
+                 <div id="deleteCourses">
+                    <form>
+                        <h1>delete course</h1>
+                        <label >id</label>
+                         <input  type="text" name ="id" v-model="idDel">
+                         
+                         <button v-on:click='deleteData'>submit</button>
+                         </form>
+                    </div>
+                    <div  id="RetriveCoursesbyPro">
+                        <h1> Retrive courses by provider:</h1>
+                        <label >Enter Provider's name</label>
+                        <input required type="text" name =" providerName" v-model=" providerName">
+              
+                        <button v-on:click='serachProCourses'>submit</button><br>
+                   
+                            <strong>{{ coursesByprovider.topic}}</strong><br>
+                            <strong>{{ coursesByprovider.price}}</strong><br>
+                            <strong>{{ coursesByprovider.location}}</strong><br>
+                            <strong>{{ coursesByprovider.reviewRanking}}</strong>
+                                   
+                    </div>
+                    <div  id="usersSearch">
+                        <h1> search for users by email11:</h1>
+                        <label >enter your email</label>
+                        <input required type="text" name ="useremail" v-model="useremail">
+                        
+                        <button v-on:click='searchForUsers'>submit</button><br>
+                   
+                            <strong>name:{{usersdetails.username}}</strong><br>
+                            <strong>{{usersdetails.email}}</strong>
+                           
+                                   
+                    </div>
+         
+        <script>
+            var createAccount = new Vue({
+    el: '#createAccount',
+    data: {
+        username:'',
+      email:'',
+      password:'',
+      userType: '',
+                     
+},
+methods:{
+    createAccount:function () {
+fetch(`http://localhost:3000/collections/users/`, {
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+body: JSON.stringify({username: this.username, email: this.email, password: this.password, userType: this.userType }) 
+}).then(function (response){
+return response.json()
+}).then(function(data){
+console.log('post rest', data)
+})
+}
+}})
+
+// creating a course
+var createcourse = new Vue({
+    el: '#createCourses',
+    data: {
+        topic:'',
+        price:'',
+        location:'',
+        providerName: '',
+                     
+},
+methods:{
+    createCourse:function () {
+fetch(`http://localhost:3000/collections/lessons/`, {
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+body: JSON.stringify({topic: this.topic, price: this.price, location: this.location, provider: this.providerName }) 
+}).then(function (response){
+return response.json()
+}).then(function(data){
+console.log('post rest', data)
+})
+}
+}})
+//updating a course by ID
+
+var testing3 = new Vue({
+el: '#updateCourses',
+data: {
+id:'',
+topic:'',
+    location:'',
+    price: '',                
+},
+methods:{
+     updateData:function () {
+         var topicid = this.id
+         var pricee = this.price;
+         var pointNum = parseFloat(pricee);
+        
+         alert(pointNum  );
+  
+   fetch(`http://localhost:3000/collections/lessons/${topicid}`, {
+    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    'Content-Type': 'application/json',
+  },
+    
+    body: JSON.stringify({topic: this.topic, location: this.location,price: pricee }) 
+  }).then(function (response){
+      return response.json()
+  }).then(function(data){
+  console.log('post rest', data)
+  })
+}
+}})
+/// delete course by id
+
+var testing4 = new Vue({
+                el: '#deleteCourses',
+                data: {
+                    idDel:'',
+                                 
+},
+methods:{
+     deleteData :function () {
+         var topicid = this.idDel
+        
+  
+   fetch(`/collections/lessons/${topicid}`, {
+    method: 'delete', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    
+  },
+    
+    body: JSON.stringify({id: this.idDel}) 
+  }).then(function (response){
+      return response.json()
+      alert(id)
+  }).then(function(data){
+  console.log('post rest', data)
+  alert(data)
+  })
+}}
+})
+
+// retrive courses by provider
+var Retrive = new Vue({
+                el: '#RetriveCoursesbyPro',
+                   data: {
+                  providerName:'',
+                  coursesByprovider:''
+                                 
+},
+methods:{
+    serachProCourses :function () {
+         var provider = this.providerName
+        
+  
+   fetch(`/collections/lessons/providers/couseprovider/${provider}`)
+   .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       Retrive.coursesByprovider  = JSON.parse(text);
+       Retrive.coursesByprovider = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+})
+//serach for users by email 
+
+var searchusers = new Vue({
+                el: '#usersSearch',
+                data: {
+                  
+                    useremail:'',
+                    usersdetails :[],
+                  
+                 },
+methods:{
+   searchForUsers:function (){
+       var email = this.useremail
+       fetch(`/collections/users/emails/${email}`)
+       .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       
+       searchusers.usersdetails = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+  })
+
+        
+        </script>
     
 </body>
 </html>
