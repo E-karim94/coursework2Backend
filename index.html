@@ -17,6 +17,8 @@
 </head>
 <body>
     <div id="coursesDispaly">
+      <button id="register" >register</button>
+      <button onclick="window.location.href = 'https://e-karim94.github.io/coursework2Backend/provider.html';">Click Here</button>
         <h1> courses555:</h1>
         <button id="notifications" >notification</button>
         <div v-for="course in courses" class="course">
@@ -64,20 +66,7 @@
                    
     </div>
         
-        <div id="createAccount">
-            <h1 style="text-align:center">Create An Account </h1>
-            <h2 id="regmessage"></h2>
-            <form>
-                <label for="username">User Name</label>
-                 <input required type="text" name ="username" v-model="username">
-                 <label for="email">Email</label>
-                 <input required type="email" name ="email" v-model="email"  >
-                 <label for="password">Password</label>
-                 <input required type="password" name ="password" v-model="password">
-                 <button v-on:click='createAccount'>submit</button>
         
-            </form>
-            </div>
           
             
             <h1>uodate courses</h1>
@@ -163,30 +152,7 @@ var testing = new Vue({
                     courses :[]
  }})
 
- var testing3 = new Vue({
-                el: '#createAccount',
-                data: {
-                    username:'',
-                  email:'',
-                  password:'',
-                                 
-},
-methods:{
-    createAccount:function () {
-   fetch(`/collections/users`, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    headers: {
-    'Content-Type': 'application/json',
-  },
-    
-    body: JSON.stringify({username: this.username, email: this.email, password: this.password }) 
-  }).then(function (response){
-      return response.json()
-  }).then(function(data){
-  console.log('post rest', data)
-  })
-}
-}})
+
 
  var testing3 = new Vue({
 el: '#updateCourses',

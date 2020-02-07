@@ -66,6 +66,31 @@ else {
 	});
 }
 
+var createAccount = new Vue({
+    el: '#createAccount',
+    data: {
+        username:'',
+      email:'',
+      password:'',
+                     
+},
+methods:{
+createAccount:function () {
+fetch(`/collections/users`, {
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+body: JSON.stringify({username: this.username, email: this.email, password: this.password }) 
+}).then(function (response){
+return response.json()
+}).then(function(data){
+console.log('post rest', data)
+})
+}
+}})
+
 
 
 
