@@ -11,6 +11,19 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="login">
+        <h1>login</h1>
+        <form>
+             <label >email</label>
+             <input type="text" name ="email" v-model="email">
+             <label >password</label>
+             <input  type="text" name ="password" v-model="password">
+             
+             <input type="button" id="butonlogin&out" v-on:click='login' value="login">
+             <button id="butonlogin&out" v-on:click='login' value="login"></button>
+             </form>
+
+      </div>
 
     <div id="createAccount">
         <h1 style="text-align:center">Create An Account </h1>
@@ -48,7 +61,7 @@
                  <label >provider's Name</label>
                  <input  type="text" name ="providerName" v-model="providerName">
                  
-                 <button v-on:click='createCourse'>submit</button>
+                 <button v-on:click='create'>submit</button>
                  </form>
 
 
@@ -78,9 +91,10 @@
                          <button v-on:click='deleteData'>submit</button>
                          </form>
                     </div>
-                    <div  id="RetriveCoursesbyPro">
+                    <div id="RetriveCoursesbyPro">
                         <h1> Retrive courses by provider:</h1>
                         <label >Enter Provider's name</label>
+
                         <input required type="text" name =" providerName" v-model=" providerName">
               
                         <button v-on:click='serachProCourses'>submit</button><br>
@@ -88,9 +102,10 @@
                             <strong>{{ coursesByprovider.topic}}</strong><br>
                             <strong>{{ coursesByprovider.price}}</strong><br>
                             <strong>{{ coursesByprovider.location}}</strong><br>
-                            <strong>{{ coursesByprovider.reviewRanking}}</strong>
+                           
                                    
                     </div>
+
                     <div  id="usersSearch">
                         <h1> search for users by email11:</h1>
                         <label >enter your email</label>
@@ -99,7 +114,8 @@
                         <button v-on:click='searchForUsers'>submit</button><br>
                    
                             <strong>name:{{usersdetails.username}}</strong><br>
-                            <strong>{{usersdetails.email}}</strong>
+                            <strong>{{usersdetails.email}}</strong><br>
+                            <strong>{{usersdetails.userType}}</strong>
                            
                                    
                     </div>
@@ -142,7 +158,7 @@ var createcourse = new Vue({
                      
 },
 methods:{
-    createCourse:function () {
+    create :function () {
 fetch(`http://localhost:3000/collections/lessons/`, {
 method: 'POST', // *GET, POST, PUT, DELETE, etc.
 headers: {
@@ -224,7 +240,7 @@ var Retrive = new Vue({
                 el: '#RetriveCoursesbyPro',
                    data: {
                   providerName:'',
-                  coursesByprovider:''
+                  coursesByprovider:[],
                                  
 },
 methods:{
@@ -232,14 +248,13 @@ methods:{
          var provider = this.providerName
         
   
-   fetch(`/collections/lessons/providers/couseprovider/${provider}`)
+   fetch(`http://localhost:3000/collections/lessons/providers/couseprovider/${provider}`)
    .then(function(response)
 {
  return response.text()
    }).then(function(text)
    {
        alert(text);
-       Retrive.coursesByprovider  = JSON.parse(text);
        Retrive.coursesByprovider = JSON.parse(text);
    }).catch(function(err){
 console.log('Fetch problem: '+err.message);
@@ -259,7 +274,7 @@ var searchusers = new Vue({
 methods:{
    searchForUsers:function (){
        var email = this.useremail
-       fetch(`/collections/users/emails/${email}`)
+       fetch(`http://localhost:3000/collections/users/emails/${email}`)
        .then(function(response)
 {
  return response.text()
@@ -273,6 +288,65 @@ console.log('Fetch problem: '+err.message);
 });
 }}
   })
+
+  ///login in users
+
+  var loginusers = new Vue({
+                el: '#login',
+                data: {
+                  
+                   email:'',
+                    password :'',
+                  
+                 },
+methods:{
+   login:function (){
+       var email = this.email
+       var entpassword = this.password
+       fetch(`/collections/users/emails/${email}`)
+       .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+    var  usersdetails = [];
+   usersdetails = JSON.parse(text);
+      
+       if (entpassword === usersdetails.password){
+      
+        postloginData(entpassword, usersdetails.email)
+   document.getElementById("butonlogin&out").value = "logout"; 
+
+
+           alert("login completed")
+
+    }
+       else 
+       alert("wrong password or email")
+      //usersdetails = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+  })
+
+  function postloginData (data1, data2){
+    fetch(`http://localhost:3000/collections/logindetails/`, {
+
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+ body: JSON.stringify({email: data2}) 
+}).then(function (response){
+ alert(data1)
+ }).then(function(data){
+ console.log('post rest', data)
+    })}
+  
+  
 
         
         </script>
