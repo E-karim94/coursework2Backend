@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Account</title>
+</head>
+<body>
+    <button onclick="window.location.href = 'index.html';">home page</button>
+    <button onclick="window.location.href = 'provider.html';">providers page</button>
+    <div id="createAccount">
+        <h1 style="text-align:center">Create An Account </h1>
+        
+        <form>
+            <label for="username">User Name</label>
+             <input required type="text" name ="username" v-model="username">
+             <label for="email">Email</label>
+             <input required type="email" name ="email" v-model="email"  >
+             <label for="password">Password</label>
+             <input required type="password" name ="password" v-model="password">
+
+             <input type="radio" id="student" value="student" v-model="userType">
+             <label for="four">student</label>
+            
+             <input type="radio" id="parent" value="parent" v-model="userType">
+             <label for="five">parent</label>
+             <br>
+            <span>user Type: {{userType}}</span><br>
+            
+             <button v-on:click='createAccount'>submit</button>
+    
+        </form>
+        </div>
+
+
+        <div id="login">
+            <h1>login</h1>
+            <form>
+                 <label >email</label>
+                 <input type="text" name ="email" v-model="email">
+                 <label >password</label>
+                 <input  type="text" name ="password" v-model="password">
+                 <button id="butonlogin&out" v-on:click='login' value="login">submit</button>
+                 </form>
+    
+          </div>
+        <script>
+
+/// create an account
+
+var createAccount = new Vue({
+    el: '#createAccount',
+    data: {
+        username:'',
+      email:'',
+      password:'',
+      userType: '',
+                     
+},
+methods:{
+    createAccount:function () {
+fetch(`http://localhost:3000/collections/users`, {
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+body: JSON.stringify({username: this.username, email: this.email, password: this.password, userType: this.userType }) 
+}).then(function (response){
+return response.json()
+}).then(function(data){
+console.log('post rest', data)
+})
+}
+}})
+
+  ///login in users
+
+  var loginusers = new Vue({
+                el: '#login',
+                data: {
+                  
+                   email:'',
+                    password :'',
+                  
+                 },
+methods:{
+   login:function (){
+       var email = this.email
+       var entpassword = this.password
+       fetch(`/collections/users/emails/${email}`)
+       .then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+    var  usersdetails = [];
+   usersdetails = JSON.parse(text);
+      
+       if (entpassword === usersdetails.password){
+      
+        postloginData(entpassword, usersdetails.email)
+   document.getElementById("butonlogin&out").value = "logout"; 
+
+
+           alert("login completed")
+
+    }
+       else 
+       alert("wrong password or email")
+      //usersdetails = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+});
+}}
+  })
+
+  function postloginData (data1, data2){
+    fetch(`http://localhost:3000/collections/logindetails`, {
+
+method: 'POST', // *GET, POST, PUT, DELETE, etc.
+headers: {
+'Content-Type': 'application/json',
+},
+
+ body: JSON.stringify({email: data2}) 
+}).then(function (response){
+ alert(data1)
+ }).then(function(data){
+ console.log('post rest', data)
+    })}
+        </script>
+    
+</body>
+</html>

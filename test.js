@@ -38,13 +38,10 @@ app.param('collectionName', (req, res, next, collectionName) => {
     })
 const ObjectID = require('mongodb').ObjectID;
 
-app.post('/collections/:collectionName',urlencodeParser, (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    req.collection.insert(req.body, (e, results) => {
-    if (e) return next(e)
-    res.send(results.ops)
-    })
-    })
+//post to database
+
+
+
 
 
 // update by ID
@@ -65,6 +62,14 @@ console.log(req.params)
 res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
 })
 })
+
+app.post('/collections/:collectionName', urlencodeParser , (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    req.collection.insert(req.body, (e, results) => {
+    if (e) return next(e)
+    res.send(results.ops)
+    })
+    })
 app.get('/collections/:collectionName',  (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 req.collection.find({}, { limit: 20, sort: [['price', -1]] }).toArray((e, results) => {
@@ -79,7 +84,7 @@ res.send(results)
 app.get('/collections/:collectionName/:providers/:couseprovider/:provider',urlencodeParser, (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log('searching courses provided by:', req.params.provider)
-    req.collection.findOne({ provider: req.params.provider }, (e, result) => {
+    req.collection.find({ provider: req.params.provider }).toArray ((e, result) => {
         if (e) return next(e)
         res.send(result)
         
@@ -93,7 +98,7 @@ app.get('/collections/:collectionName/:providers/:couseprovider/:provider',urlen
   app.get('/collections/:collectionName/:emails/:email',urlencodeParser, (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log('searching json object with email:', req.params.email)
-    req.collection.findOne({ email: req.params.email }, (e, result) => {
+    req.collection.find({ email: req.params.email }).toArray((e, result) => {
         if (e) return next(e)
         res.send(result)
         console.log('searching json object with body:', req.body)
