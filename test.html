@@ -6,7 +6,45 @@
 
 <body>
     <h1>test page</h1>
+
+    <div id="deleteCourses">
+        <form>
+            <h1>delete course</h1>
+            <label >id</label>
+             <input  type="text" name ="id" v-model="idDel">
+             
+             <button v-on:click='deleteData'>submit</button>
+             </form>
+        </div>
     <script>
+
+var testing4 = new Vue({
+                el: '#deleteCourses',
+                data: {
+                    idDel:'',
+                                 
+},
+methods:{
+     deleteData :function () {
+         var topicid = this.idDel
+        
+  
+   fetch(`http://localhost:3000/collections/lessons/${topicid}`, {
+    method: 'delete', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+    
+  },
+    
+    body: JSON.stringify({id: this.idDel}) 
+  }).then(function (response){
+      return response.json()
+      alert(id)
+  }).then(function(data){
+  console.log('post rest', data)
+  alert(data)
+  })
+}}
+})
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         };
