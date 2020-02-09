@@ -39,6 +39,13 @@ app.param('collectionName', (req, res, next, collectionName) => {
 const ObjectID = require('mongodb').ObjectID;
 
 //post to database
+app.post('/collections/:collectionName', urlencodeParser , (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    req.collection.insert(req.body, (e, results) => {
+    if (e) return next(e)
+    res.send(results.ops)
+    })
+    })
 
 
 
@@ -63,13 +70,8 @@ res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
 })
 })
 
-app.post('/collections/:collectionName', urlencodeParser , (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    req.collection.insert(req.body, (e, results) => {
-    if (e) return next(e)
-    res.send(results.ops)
-    })
-    })
+
+
 app.get('/collections/:collectionName',  (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 req.collection.find({}, { limit: 20, sort: [['price', -1]] }).toArray((e, results) => {
@@ -117,11 +119,7 @@ res.send(result)
 
 })})
 
-  
-  
 
-
-   
 
  // delete a lesson by ID
 app.delete('/collections/:collectionName/:id',urlencodeParser, (req, res, next) => {

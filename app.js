@@ -17,7 +17,7 @@ fetch('http://localhost:3000/collections/lessons')
  return response.text()
    }).then(function(text)
    {
-       alert(text);
+      
        courses = JSON.parse(text);
 
        var template = "<article>\n\
@@ -25,8 +25,9 @@ fetch('http://localhost:3000/collections/lessons')
 <h3>#POS. NAME</h3>\n\
 <ul>\n\
 <li><span>Location:</span> <strong>LOCATION</strong></li>\n\
-<li><span>Price:</span><strong>PRICE</strong></li> \n\
+<li><span>Price £:</span><strong>PRICE</strong></li> \n\
 <li><span>Provider:</span><strong>PROVIDER</strong></li> \n\
+<li><span>review:</span><strong>REVIEW</strong></li> \n\
 </ul>\n\
 </article>";
 var content = '';
@@ -38,6 +39,7 @@ var entry = template.replace(/POS/g,(i+1))
     .replace(/LOCATION/g,courses[i].location)
     .replace(/PRICE/g,courses[i].price)
     .replace(/PROVIDER/g,courses[i].provider)
+    .replace(/REVIEW/g,courses[i].review)
     
     
 entry = entry.replace('<a href=\'http:///\'></a>','-');
@@ -182,7 +184,7 @@ var createcourse = new Vue({
 },
 methods:{
     create :function () {
-fetch(`http://localhost:3000/collections/lessons/`, {
+fetch('http://localhost:3000/collections/lessons', {
 method: 'POST', // *GET, POST, PUT, DELETE, etc.
 headers: {
 'Content-Type': 'application/json',

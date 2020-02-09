@@ -6,6 +6,8 @@
     <script src="https://unpkg.com/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel = "stylesheet" href="home.css">
+    
     <title>Account</title>
 </head>
 <body>
@@ -16,11 +18,11 @@
         
         <form>
             <label for="username">User Name</label>
-             <input required type="text" name ="username" v-model="username">
+             <input required type="text" name ="username" v-model="username"><br>
              <label for="email">Email</label>
-             <input required type="email" name ="email" v-model="email"  >
+             <input required type="email" name ="email" v-model="email"  ><br>
              <label for="password">Password</label>
-             <input required type="password" name ="password" v-model="password">
+             <input required type="password" name ="password" v-model="password"><br>
 
              <input type="radio" id="student" value="student" v-model="userType">
              <label for="four">student</label>
