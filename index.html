@@ -7,8 +7,8 @@
     <script src="https://unpkg.com/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <link rel = "stylesheet" type="text/css" href="home.css">
- 
+    <link rel = "stylesheet" href="home.css">
+    <link rel="stylesheet" href ="home.css" media="print">
        <script src="app.js" defer></script>
        <link rel ="manifest" href="cw2.webmanifest"> 
        <script src="data/courses.js" defer></script>
@@ -19,81 +19,42 @@
     <div id="coursesDispaly">
      
       <button onclick="window.location.href = 'provider.html';">Click Here</button>
-        <h1> courses555:</h1>
+        <h1> courses:</h1>
         <button id="notifications" >notification</button>
-        <div v-for="course in courses" class="course">
-          <h2>{{course.topic}}</h2>
-          <ul>
-            <li>provider:<strong>{{course.provider}}</strong></li>
-            <li>location:{{course.location}}</li>
-            <li>price:{{course.price}}</li>
-            <li>Ranking:{{course.ranking}}</li>  
-        </div>
-    </div>
-    <section id="content">
-      <article v-for="course in courses">
-        <img src='data/images/blur.jpg' data-src="data/images/image2.jpg"  alt='name' width="200" height="200"></img>
+        <Button @click='loadCourse'>Display all courses</Button>
         
-     
-       
-        <h2>{{course.topic}}</h2>
-        <ul>
-          <li>provider:<strong>{{course.provider}}</strong></li>
-          <li>location:{{course.location}}</li>
-          <li>price:{{course.price}}</li>
-          <li>Ranking:{{course.ranking}}</li>
-         
-          
-        </ul>
-      </article>
+    <section id="content">
+
     </section>
-  
+    </div>
+
+    <div  id="contentProvider">
+        <h1> Retrive courses by provider:</h1>
+        <label >Enter Provider's name</label>
+        <input required type="text" name =" providerName" v-model="providerName">
+
+        <button v-on:click='findCourse'>submit</button><br>
+   
+        <section id="provider">
+
+        </section>    
+    </div>
         
     <script>
     
 
       
 
-fetch('http://localhost:3000/collections/lessons')
-.then(function(response)
-{
- return response.text()
-   }).then(function(text)
-   {
-       alert(text);
-       testing.courses = JSON.parse(text);
-   }).catch(function(err){
-console.log('Fetch problem: '+err.message);
-});
 
-var displayblur = new Vue({
-                el: '#content',
-                data: {
 
-                    courses : [ { 'slug':'lego','topic': 'Lego', 'provider':'mike laley', 'location': 'hendon', 'price': 100 , 'ranking':[{'user':'email1','ranking':5},{'user':'email2','ranking':3}]},
-      { 'slug':'image2','topic': 'Dancing', 'provider':'micheal promt', 'location': 'Greater London', 'price': 140 },
-      {'slug':'image3', 'topic': 'Sitch','provider':'Mary Bow',  'location': 'Colindale', 'price': 80 },
-      {'slug':'image4', 'topic': 'Sport of under 4','provider':'Lehla Megan',  'location': 'Brent Cross', 'price': 90 },
-      {'slug':'image5', 'topic': 'Skateboarding','provider':'Brian Sama',  'location': 'Hackney', 'price': 200 },
-      {'slug':'image6', 'topic': 'Robots for kids','provider':'Priti Patel',  'location': 'Downing Street', 'price': 190 },
-      {'slug':'image7', 'topic': 'Feel at Home','provider':'Nana Kwami',  'location': 'Ilford ', 'price': 299 },
-      {'slug':'image8', 'topic': 'Bounce','provider':'Kean Lee',  'location': 'Tottenham', 'price': 179 },
-      {'slug':'image9', 'topic': 'Multi Sport','provider':'Sata Rahmani',  'location': 'Seven sisters', 'price': 90 },
-      {'slug':'image10', 'topic': 'Coaching','provider':'Garry Williams',  'location': 'Bruce Grove', 'price': 245 },
-      ]
- }})
 
-var testing = new Vue({
-                el: '#coursesDispaly',
-                data: {
 
-                    courses :[]
- }})
 
 
 
  
-         // <img src="'data/images/'+course.slug+'.jpg'" alt="course.name" width="200" height="200">             
+         // <img src="'data/images/'+course.slug+'.jpg'" alt="course.name" width="200" height="200">      
+        // <img :src="'data/images/'+course.slug+'.jpg'" :alt="course.name" width="200" height="200">         
     </script>
     
 </body>

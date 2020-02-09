@@ -1,43 +1,49 @@
+    var courses = [];
+    var courses2 =[];
+
+
+    var coursesdis = new Vue({
+        el: '#coursesDispaly',
+        data: {
+
+            courses :[]
+
+},
+methods:{  
+    loadCourse: function () { 
+fetch('http://localhost:3000/collections/lessons')
+.then(function(response)
+{
+ return response.text()
+   }).then(function(text)
+   {
+       alert(text);
+       courses = JSON.parse(text);
+
+       var template = "<article>\n\
+<img src='data/images/blur.jpg' data-src='data/images/SLUG.jpg' alt='NAME'width='200' height='200'>\n\
+<h3>#POS. NAME</h3>\n\
+<ul>\n\
+<li><span>Location:</span> <strong>LOCATION</strong></li>\n\
+<li><span>Price:</span><strong>PRICE</strong></li> \n\
+<li><span>Provider:</span><strong>PROVIDER</strong></li> \n\
+</ul>\n\
+</article>";
+var content = '';
+for(var i=0; i<courses.length; i++) {
  
- if ('serviceWorker'in navigator)
-{navigator.serviceWorker.register('/coursework2Backend/sw.js');
+var entry = template.replace(/POS/g,(i+1))
+     .replace(/SLUG/g,courses[i].slug)
+    .replace(/NAME/g,courses[i].topic)
+    .replace(/LOCATION/g,courses[i].location)
+    .replace(/PRICE/g,courses[i].price)
+    .replace(/PROVIDER/g,courses[i].provider)
+    
+    
+entry = entry.replace('<a href=\'http:///\'></a>','-');
+content += entry;
 };
-
-
-var button = document.getElementById("notifications");
-button.addEventListener('click',function(e){
-Notification.requestPermission().then(function(result){
-    if(result==='granted'
-    ){
-        randomNotification();
-    }}
-    );
-});
-
-var courses =  [ { 'slug':'lego','topic': 'Legooo', 'provider':'mike laley', 'location': 'hendon', 'price': 100 },
-{ 'slug':'image2','topic': 'Dancing', 'provider':'micheal promt', 'location': 'Greater London', 'price': 140 },
-{'slug':'image3', 'topic': 'Sitch','provider':'Mary Bow',  'location': 'Colindale', 'price': 80 },
-{'slug':'image4', 'topic': 'Sport of under 4','provider':'Lehla Megan',  'location': 'Brent Cross', 'price': 90 },
-{'slug':'image5', 'topic': 'Skateboarding','provider':'Brian Sama',  'location': 'Hackney', 'price': 200 },
-{'slug':'image6', 'topic': 'Robots for kids','provider':'Priti Patel',  'location': 'Downing Street', 'price': 190 },
-{'slug':'image7', 'topic': 'Feel at Home','provider':'Nana Kwami',  'location': 'Ilford ', 'price': 299 },
-{'slug':'image8', 'topic': 'Bounce','provider':'Kean Lee',  'location': 'Tottenham', 'price': 179 },
-{'slug':'image9', 'topic': 'Multi Sport','provider':'Sata Rahmani',  'location': 'Seven sisters', 'price': 90 },
-{'slug':'image10', 'topic': 'Coaching','provider':'Garry Williams',  'location': 'Bruce Grove', 'price': 245 },
-]
-
-
-function randomNotification(){
-    var randomItem = Math.floor(Math.random()*courses.length);
-    var notifTitle = courses[randomItem].topic;
-    var notifBody='Created by '+courses[randomItem].provider+'.';
-    var notifImg='data/images/'+courses[randomItem].slug+'.jpg';
-    var options = {body:notifBody,
-        icon:notifImg
-    }
-    var notif = new Notification(notifTitle,options);
-    setTimeout(randomNotification,300000000);
-}
+document.getElementById('content').innerHTML = content;
 
 let imagesToLoad = document.querySelectorAll('img[data-src]');
 const loadImages = (image) => {
@@ -65,6 +71,60 @@ else {
 		loadImages(img);
 	});
 }
+
+       
+       testing.courses = JSON.parse(text);
+   }).catch(function(err){
+console.log('Fetch problem: '+err.message);
+})
+}
+}
+    }
+);
+
+// courses created by a provider
+
+
+
+//////////////////////////
+
+
+
+
+
+
+
+ if ('serviceWorker'in navigator)
+{navigator.serviceWorker.register('/coursework2Backend/sw.js');
+};
+
+
+var button = document.getElementById("notifications");
+button.addEventListener('click',function(e){
+Notification.requestPermission().then(function(result){
+    if(result==='granted'
+    ){
+        randomNotification();
+    }}
+    );
+});
+
+
+
+
+function randomNotification(){
+    var randomItem = Math.floor(Math.random()*courses.length);
+    var notifTitle = courses[randomItem].topic;
+    var notifBody='Created by '+courses[randomItem].provider+'.';
+    var notifImg='data/images/'+courses[randomItem].slug+'.jpg';
+    var options = {body:notifBody,
+        icon:notifImg
+    }
+    var notif = new Notification(notifTitle,options);
+    setTimeout(randomNotification,300000000);
+}
+
+
 
 
 

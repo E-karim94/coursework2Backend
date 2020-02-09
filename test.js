@@ -33,7 +33,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 
 
     app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname + '/index.html'));
+        res.sendFile(path.join(__dirname + '/provider.html'));
     
     })
 const ObjectID = require('mongodb').ObjectID;
@@ -47,7 +47,7 @@ app.post('/collections/:collectionName',urlencodeParser, (req, res, next) => {
     })
 
 
-
+// update by ID
 app.put('/collections/:collectionName/:id', urlencodeParser, (req, res, next) =>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     var id = req.params.id
@@ -55,7 +55,7 @@ app.put('/collections/:collectionName/:id', urlencodeParser, (req, res, next) =>
     console.log (req.body.topic)
     console.log (req.body.location)
     console.log (req.body)
-    req.collection.updateOne({ _id: new ObjectID(req.params.id) },
+    req.collection.updateOne({topicId : req.params.id },
 
 { $set:req.body},
 
@@ -67,7 +67,7 @@ res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
 })
 app.get('/collections/:collectionName',  (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-req.collection.find({}, { limit: 10, sort: [['price', -1]] }).toArray((e, results) => {
+req.collection.find({}, { limit: 20, sort: [['price', -1]] }).toArray((e, results) => {
 if (e) return next(e)
 res.send(results)
 })
@@ -120,7 +120,7 @@ res.send(result)
 
  // delete a lesson by ID
 app.delete('/collections/:collectionName/:id',urlencodeParser, (req, res, next) => {
-        req.collection.deleteOne({ _id: ObjectID(req.params.id) }, (e, result) => {
+        req.collection.deleteOne({topicId : req.params.id }, (e, result) => {
         if (e) return next(e)
         res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
         })
