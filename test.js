@@ -20,7 +20,7 @@ const MongoClient = require('mongodb').MongoClient;
 let db;
 
  MongoClient.connect('mongodb://127.0.0.1:27017/', (err, client) => {
- db = client.db('coursework')
+ db = client.db('coursework1')
 
  
 })
